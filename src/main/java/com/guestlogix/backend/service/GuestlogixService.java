@@ -27,7 +27,7 @@ public class GuestlogixService {
 		Optional<Airport> origin = airportRepository.findByIata3(originIata3);
 		Optional<Airport> destination = airportRepository.findByIata3(destinationIata3);	
 		this.validateAirports(origin, destination);
-		List<Airport> airports = airportRepository.findAll();	
+		List<Airport> airports = airportRepository.findAll();
 		this.populateRoutes(airports);
 		List<Airport> airportsOfRoute = new DijkstraService(airports, origin.get(), destination.get()).fetchShortestPath();	
 		return chooseRoutesBetweenAirports(airportsOfRoute);
@@ -42,21 +42,26 @@ public class GuestlogixService {
 		}
 	}
 	
-	protected void populateRoutes(List<Airport> airports) {
-		for (Airport airport : airports) {
-			List<Route> possibleRoutes = routeRepository.findByOriginIata3(airport.getIata3());
-			airport.setRoutes(possibleRoutes);
+	protected void populateRoutes(List<Airport> airportsList) {
+		Optional<List<Airport>> airports = Optional.ofNullable(airportsList);
+		if(airports.isPresent()) {
+			for (Airport airport : airports.get()) {
+				List<Route> possibleRoutes = routeRepository.findByOriginIata3(airport.getIata3());
+				airport.setRoutes(possibleRoutes);
+			}			
 		}
 	}
 	
-	protected List<Route> chooseRoutesBetweenAirports(List<Airport> airports) {
-		if(airports.size() < 2) {
+	protected List<Route> chooseRoutesBetweenAirports(List<Airport> airportsList) {
+		Optional<List<Airport>> airports = Optional.ofNullable(airportsList);
+		if(!airports.isPresent() || airports.get().size() < 2) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no route between these airports");
 		} else {
+			List<Airport> airportsFound = airports.get();
 			List<Route> bestRoute = new ArrayList<Route>();
-			for (int i = 0; i < airports.size() - 1; i++) {
-				String originIata3 = airports.get(i).getIata3();
-				String destinationIata3 = airports.get(i + 1).getIata3();
+			for (int i = 0; i < airportsFound.size() - 1; i++) {
+				String originIata3 = airportsFound.get(i).getIata3();
+				String destinationIata3 = airportsFound.get(i + 1).getIata3();
 				List<Route> connections = routeRepository.findByOriginIata3AndDestinationIata3(originIata3, destinationIata3);
 				if(connections.isEmpty()) {
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There was an internal error of data");
