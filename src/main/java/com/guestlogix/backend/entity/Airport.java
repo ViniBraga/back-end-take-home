@@ -1,6 +1,7 @@
 package com.guestlogix.backend.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -64,7 +65,7 @@ public class Airport implements Serializable, Comparable<Airport> {
 	
 	@JsonIgnore
 	@Transient
-	private List<Route> routes;
+	private List<Route> routes = new ArrayList<>();
 
 	@Override
 	public int compareTo(Airport other) {

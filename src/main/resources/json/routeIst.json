@@ -1,0 +1,24 @@
+[  
+   {  
+      "originIata3":"IST",
+      "originAirport":{  
+         "id":1656,
+         "iata3":"IST",
+         "name":"Atatürk International Airport",
+         "city":"Istanbul",
+         "country":"Turkey",
+         "latitude":40.97689819,
+         "longitude":28.81459999
+      },
+      "destinationIata3":"BRU",
+      "destinationAirport":{  
+         "id":300,
+         "iata3":"BRU",
+         "name":"Brussels Airport",
+         "city":"Brussels",
+         "country":"Belgium",
+         "latitude":50.90140152,
+         "longitude":4.48443985
+      }
+   }
+]

@@ -1,0 +1,46 @@
+[  
+   {  
+      "originIata3":"BRU",
+      "originAirport":{  
+         "id":300,
+         "iata3":"BRU",
+         "name":"Brussels Airport",
+         "city":"Brussels",
+         "country":"Belgium",
+         "latitude":50.90140152,
+         "longitude":4.48443985
+      },
+      "destinationIata3":"IST",
+      "destinationAirport":{  
+         "id":1656,
+         "iata3":"IST",
+         "name":"Atatürk International Airport",
+         "city":"Istanbul",
+         "country":"Turkey",
+         "latitude":40.97689819,
+         "longitude":28.81459999
+      }
+   },
+   {  
+      "originIata3":"BRU",
+      "originAirport":{  
+         "id":300,
+         "iata3":"BRU",
+         "name":"Brussels Airport",
+         "city":"Brussels",
+         "country":"Belgium",
+         "latitude":50.90140152,
+         "longitude":4.48443985
+      },
+      "destinationIata3":"BJM",
+      "destinationAirport":{  
+         "id":1095,
+         "iata3":"BJM",
+         "name":"Bujumbura International Airport",
+         "city":"Bujumbura",
+         "country":"Burundi",
+         "latitude":-3.324019909,
+         "longitude":29.31850052
+      }
+   }
+]

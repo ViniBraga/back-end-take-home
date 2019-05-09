@@ -27,7 +27,7 @@ public class GuestlogixService {
 		Optional<Airport> origin = airportRepository.findByIata3(originIata3);
 		Optional<Airport> destination = airportRepository.findByIata3(destinationIata3);	
 		this.validateAirports(origin, destination);
-		List<Airport> airports = airportRepository.findAll();
+		List<Airport> airports = airportRepository.findAll();		
 		this.populateRoutes(airports);
 		List<Airport> airportsOfRoute = new DijkstraService(airports, origin.get(), destination.get()).fetchShortestPath();	
 		return chooseRoutesBetweenAirports(airportsOfRoute);
@@ -62,15 +62,25 @@ public class GuestlogixService {
 			for (int i = 0; i < airportsFound.size() - 1; i++) {
 				String originIata3 = airportsFound.get(i).getIata3();
 				String destinationIata3 = airportsFound.get(i + 1).getIata3();
-				List<Route> connections = routeRepository.findByOriginIata3AndDestinationIata3(originIata3, destinationIata3);
-				if(connections.isEmpty()) {
-					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There was an internal error of data");
-				} else {
-					bestRoute.add(connections.stream().findAny().get());
-				}
+				Route route = fetchRoute(originIata3, destinationIata3);
+				bestRoute.add(route);
 			}
 			return bestRoute;
 		}
+	}
+
+	protected Route fetchRoute(String originIata3, String destinationIata3) {
+		Optional<String> origin = Optional.ofNullable(originIata3);
+		Optional<String> destination = Optional.ofNullable(destinationIata3);
+		Route route = new Route();
+		if(origin.isPresent() && destination.isPresent()) {
+			List<Route> connections = routeRepository.findByOriginIata3AndDestinationIata3(originIata3, destinationIata3);
+			if(connections.isEmpty()) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There was an internal error of data");
+			}
+			route = connections.stream().findAny().get();
+		}
+		return route;
 	}
 	
 }

@@ -45,10 +45,12 @@ public class DijkstraService {
 	}
 
 	protected void calculateDistanceOfConnectedAirports(Airport currentAirport) {
-		for (Route currentRoute : currentAirport.getRoutes()) {
-			Airport connectedAirport = currentRoute.getDestinationAirport();
-			if (connectedAirport != null && !connectedAirport.isVisited()) {
-				this.compareDistanceBetween(currentAirport, connectedAirport);
+		if(currentAirport.getRoutes() != null) {
+			for (Route currentRoute : currentAirport.getRoutes()) {
+				Airport connectedAirport = currentRoute.getDestinationAirport();
+				if (connectedAirport != null && !connectedAirport.isVisited()) {
+					this.compareDistanceBetween(currentAirport, connectedAirport);
+				}
 			}
 		}
 	}

@@ -1,0 +1,46 @@
+[  
+   {  
+      "originIata3":"OUA",
+      "originAirport":{  
+         "id":244,
+         "iata3":"OUA",
+         "name":"Ouagadougou Airport",
+         "city":"Ouagadougou",
+         "country":"Burkina Faso",
+         "latitude":12.35319996,
+         "longitude":-1.512420058
+      },
+      "destinationIata3":"BRU",
+      "destinationAirport":{  
+         "id":300,
+         "iata3":"BRU",
+         "name":"Brussels Airport",
+         "city":"Brussels",
+         "country":"Belgium",
+         "latitude":50.90140152,
+         "longitude":4.48443985
+      }
+   },
+   {  
+      "originIata3":"OUA",
+      "originAirport":{  
+         "id":244,
+         "iata3":"OUA",
+         "name":"Ouagadougou Airport",
+         "city":"Ouagadougou",
+         "country":"Burkina Faso",
+         "latitude":12.35319996,
+         "longitude":-1.512420058
+      },
+      "destinationIata3":"IST",
+      "destinationAirport":{  
+         "id":1656,
+         "iata3":"IST",
+         "name":"Atatürk International Airport",
+         "city":"Istanbul",
+         "country":"Turkey",
+         "latitude":40.97689819,
+         "longitude":28.81459999
+      }
+   }
+]

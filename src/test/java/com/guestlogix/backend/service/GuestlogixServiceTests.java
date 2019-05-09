@@ -1,8 +1,7 @@
 package com.guestlogix.backend.service;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,31 +10,30 @@ import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.guestlogix.backend.entity.Airport;
+import com.guestlogix.backend.entity.Route;
 import com.guestlogix.backend.repository.AirportRepository;
 import com.guestlogix.backend.repository.RouteRepository;
+
+
+
+import static org.mockito.ArgumentMatchers.*;
 
 @RunWith(SpringRunner.class)
 public class GuestlogixServiceTests {
 
-	@MockBean
+	@Mock
     private AirportRepository airportRepository;
 	
-	@MockBean
+	@Mock
     private RouteRepository routeRepository;
 	
 	@InjectMocks
 	private GuestlogixService service;
-	
-	//@Before
-    //public void setup() {
-        // Initializes the JacksonTester
-        //JacksonTester.initFields(this, new ObjectMapper());
-    //}
 	
 	@Test(expected = ResponseStatusException.class)
 	public void should_return_error_when_origin_is_null() throws Exception {
@@ -100,74 +98,20 @@ public class GuestlogixServiceTests {
 		airports.add(new Airport());
 		airports.add(new Airport());
 		try {
-			service.chooseRoutesBetweenAirports(airports);	
+			List<Route> routes = new ArrayList<Route>();
+			routes.add(new Route());
+			routes.add(new Route());
+			when(routeRepository.findByOriginIata3AndDestinationIata3(anyString(), anyString())).thenReturn(routes);
+			service.chooseRoutesBetweenAirports(airports);
 		} catch (Exception e) {
 			fail();
 		}
 	}
 	
-	@Test
-	public void should_throw_error_when_there_are_two_or_more_airports_to_choose_the_route_but_it_does_not_have_routes() {
-		List<Airport> airports = new ArrayList<>();
-		airports.add(new Airport());
-		airports.add(new Airport());
-		try {
-			service.chooseRoutesBetweenAirports(airports);	
-		} catch (Exception e) {
-			fail();
-		}
-	}
-	
-	
-	
-	
-	//@Test
-	public void shouldNotFetchShortestRouteWhenDestinationIsNull2() {
-		given(airportRepository.findByIata3("")).willReturn(Optional.empty());
-
-        // when
-        //when(service.validateAirports)
-		
-		
-
-        // then
-        //assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        //assertThat(response.getContentAsString()).isEqualTo(jsonSuperHero.write(new SuperHero("Rob", "Mannon", "RobotMan")).getJson());
-		
-		
-		
-		assertEquals(true, true);
-	}
-	
-	//@Test(expected=ResponseStatusException.class)
-	//@Test
-	public void shouldNotFetchShortestRouteWhenOriginNotFound() {
-		System.out.println("TESTANDOOOOOO");
-		assertEquals(true, true);
-	}
-	
-	//@Test
-	public void shouldNotFetchShortestRouteWhenDestinationNotFound() {
-		System.out.println("TESTANDOOOOOO");
-		assertEquals(true, true);
-	}
-	
-	//@Test
-	public void shouldFetchShortestRouteBetweenTwoAirports() {
-		System.out.println("TESTANDOOOOOO");
-		assertEquals(true, true);
-	}
-	
-	//@Test(expected=ResponseStatusException.class)
-	public void shouldNotChooseRoutesWhenThereAreLessThan2Airports(){
-		List<Airport> airports = new ArrayList<>();
-		airports.add(new Airport());
-		//controller.chooseRoutesBetweenAirports(airports);
-	}
-	
-	//@Test
-	public void shouldChooseRoutesBetweenAirports() {
-		
+	@Test(expected = ResponseStatusException.class)
+	public void should_throw_error_when_there_are_two_or_more_airports_to_choose_the_route_but_no_route_is_found_for_each() {
+		when(routeRepository.findByOriginIata3AndDestinationIata3(anyString(), anyString())).thenReturn(new ArrayList<Route>());
+		service.fetchRoute(anyString(), anyString());	
 	}
 	
 }
