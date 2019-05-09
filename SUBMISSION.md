@@ -26,7 +26,7 @@ Therefore, whenever the repository is updated, a deploy on the server runs autom
 
 ### Executing
 
-The path to research for the shortest route is the following:
+The path to search for the shortest route is the following:
 
 `/ guestlogix / {IATA3_ORIGIN_AIRPORT} / {IATA3_DESTINATION_AIRPORT}`
 
