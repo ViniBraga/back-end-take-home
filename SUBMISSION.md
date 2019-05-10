@@ -4,13 +4,13 @@
 If you have Maven installed, it is advisable to generate the application package by executing the following command 
 on the root of the project:
 
-`mvn clean package`
+`$ mvn clean package`
 
 ### Starting server
 
 To start the server, simply run the following command on the root of the project:
 
-`java -jar ./target/guestlogix-backend-0.0.1-SNAPSHOT.jar`
+`$ java -jar ./target/guestlogix-backend-0.0.1-SNAPSHOT.jar`
 
 PS: Remembering that to run the application, you need java 8 installed
 
